@@ -5,7 +5,7 @@ namespace Tax16\ToolsBundle\Infrastructure\Retry\CompilerPass;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
-use Tax16\ToolsBundle\Core\Domain\Attribut\Retry\Retry;
+use Tax16\ToolsBundle\Core\Domain\Retry\Attribut\Retry;
 use Tax16\ToolsBundle\Infrastructure\Retry\Proxy\RetryProxyFactory;
 
 class RetryCompilerPass implements CompilerPassInterface

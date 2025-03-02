@@ -2,7 +2,7 @@
 
 namespace App\Tests\Unit\Inflrastructure\Retry\FakeClass;
 
-use Tax16\ToolsBundle\Core\Domain\Attribut\Retry\Retry;
+use Tax16\ToolsBundle\Core\Domain\Retry\Attribut\Retry;
 
 class TestServiceAllCallFailed
 {

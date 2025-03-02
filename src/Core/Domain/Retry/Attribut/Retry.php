@@ -1,6 +1,6 @@
 <?php
 
-namespace Tax16\ToolsBundle\Core\Domain\Attribut\Retry;
+namespace Tax16\ToolsBundle\Core\Domain\Retry\Attribut;
 
 #[\Attribute(\Attribute::TARGET_METHOD)]
 class Retry

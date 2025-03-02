@@ -5,7 +5,7 @@ namespace Tax16\ToolsBundle\Infrastructure\Retry\Proxy;
 use ProxyManager\Factory\LazyLoadingValueHolderFactory;
 use ProxyManager\Proxy\VirtualProxyInterface;
 use Psr\Log\LoggerInterface;
-use Tax16\ToolsBundle\Core\Domain\Attribut\Retry\Retry;
+use Tax16\ToolsBundle\Core\Domain\Retry\Attribut\Retry;
 
 readonly class RetryProxyFactory
 {
