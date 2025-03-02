@@ -1,0 +1,13 @@
+services:
+  php84:
+    build:
+      context: .docker/php84
+    container_name: php84
+    volumes:
+      - ./:/var/www
+    working_dir: /var/www
+    networks:
+      - test-network
+
+networks:
+  test-network:
