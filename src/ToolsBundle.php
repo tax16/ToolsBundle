@@ -4,6 +4,7 @@ namespace Tax16\ToolsBundle;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Tax16\ToolsBundle\Infrastructure\FeatureFlag\CompilerPass\FeatureFlagMethodSwitchCompilerPass;
 use Tax16\ToolsBundle\Infrastructure\Retry\CompilerPass\RetryCompilerPass;
 
 class ToolsBundle extends Bundle
@@ -13,6 +14,7 @@ class ToolsBundle extends Bundle
         parent::build($container);
 
         $container
-            ->addCompilerPass(new RetryCompilerPass());
+            ->addCompilerPass(new RetryCompilerPass())
+            ->addCompilerPass(new FeatureFlagMethodSwitchCompilerPass());
     }
 }

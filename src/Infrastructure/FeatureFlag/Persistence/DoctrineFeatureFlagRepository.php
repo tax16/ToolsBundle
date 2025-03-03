@@ -43,4 +43,11 @@ class DoctrineFeatureFlagRepository implements FeatureFlagRepositoryInterface
         $this->entityManager->remove($featureFlag);
         $this->entityManager->flush();
     }
+
+    public function findAll(): array
+    {
+        return $this->entityManager
+            ->getRepository(FeatureFlag::class)
+            ->findAll();
+    }
 }

@@ -2,15 +2,15 @@
 
 namespace Tax16\ToolsBundle\Core\Application\FeatureFlag\Provider;
 
-use Tax16\ToolsBundle\Core\Domain\FeatureFlag\Repository\FeatureFlagRepositoryInterface;
+use Tax16\ToolsBundle\Core\Application\FeatureFlag\Factory\FeatureFlagLoaderFactory;
 
 class FeatureFlagProvider
 {
-    private FeatureFlagRepositoryInterface $repository;
+    private FeatureFlagLoaderFactory $featureFlagLoaderFactory;
 
-    public function __construct(FeatureFlagRepositoryInterface $repository)
+    public function __construct(FeatureFlagLoaderFactory $featureFlagLoaderFactory)
     {
-        $this->repository = $repository;
+        $this->featureFlagLoaderFactory = $featureFlagLoaderFactory;
     }
 
     /**
@@ -18,14 +18,20 @@ class FeatureFlagProvider
      * @param string $flag
      * @return bool
      */
-    public function provideState(string $flag): bool
+    public function provideStateByFlag(string $flag): bool
     {
-        $featureFlag = $this->repository->findByName($flag);
-        if (!$featureFlag) {
-            return false;
+        $loader = $this->featureFlagLoaderFactory->create();
+        $featureFlags = $loader->loadFeatureFlags();
+
+        $flag = mb_strtolower($flag);
+
+        $filteredFlags = array_filter($featureFlags, static fn($featureFlag) => mb_strtolower($featureFlag->getName()) === $flag);
+
+        if (empty($filteredFlags)) {
+            throw new \InvalidArgumentException(sprintf('Feature flag "%s" does not exist.', $flag));
         }
 
-        return $featureFlag->isEnabled();
+        return array_values($filteredFlags)[0]->isEnabled();
     }
 
     /**
@@ -34,20 +40,23 @@ class FeatureFlagProvider
      * @param string[] $flags
      * @return bool
      */
-    public function provideStates(array $flags): bool
+    public function provideStateByFlags(array $flags): bool
     {
-        $featureFlags = $this->repository->findByNames($flags);
+        $loader = $this->featureFlagLoaderFactory->create();
+        $featureFlags = $loader->loadFeatureFlags();
 
-        if (count($featureFlags) !== count($flags)) {
-            return false;
+        $flags = array_map('mb_strtolower', $flags);
+
+        $filteredFlags = array_filter($featureFlags, static fn($featureFlag) => in_array(mb_strtolower($featureFlag->getName()), $flags, true));
+
+        $foundFlagNames = array_map(static fn($featureFlag) => mb_strtolower($featureFlag->getName()), $filteredFlags);
+
+        $missingFlags = array_diff($flags, $foundFlagNames);
+
+        if (!empty($missingFlags)) {
+            throw new \InvalidArgumentException(sprintf('Some feature flags do not exist: %s', implode(', ', $missingFlags)));
         }
 
-        foreach ($featureFlags as $featureFlag) {
-            if (!$featureFlag->isEnabled()) {
-                return false;
-            }
-        }
-
-        return true;
+        return array_reduce($filteredFlags, static fn($carry, $featureFlag) => $carry && $featureFlag->isEnabled(), true);
     }
 }

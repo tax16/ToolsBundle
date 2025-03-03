@@ -1,14 +1,4 @@
 feature_flags:
   storage:
-    type: doctrine  # Peut être 'doctrine', 'yaml' ou 'json'
-
-  doctrine:
-    enabled: true
-
-  yaml:
-    enabled: false
-    path: '%kernel.project_dir%/config/feature_flags.yaml'
-
-  json:
-    enabled: false
+    type: json  # Peut être 'doctrine', 'yaml' ou 'json'
     path: '%kernel.project_dir%/config/feature_flags.json'

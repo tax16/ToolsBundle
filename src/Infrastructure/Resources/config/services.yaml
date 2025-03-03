@@ -17,5 +17,10 @@ services:
         resource: '../src/'
         exclude:
 
+    Tax16\ToolsBundle\Infrastructure\FeatureFlag\Loader:
+        arguments:
+            $loaders: !tagged_iterator feature_flag_loader
+        autowire: true
+        autoconfigure: true
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

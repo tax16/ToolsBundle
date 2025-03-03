@@ -3,17 +3,23 @@
 namespace Tax16\ToolsBundle\Infrastructure\FeatureFlag\Loader;
 
 use DateMalformedStringException;
-use DateTime;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\Yaml\Yaml;
-use Tax16\ToolsBundle\Core\Domain\FeatureFlag\Entity\FeatureFlag;
-use Tax16\ToolsBundle\Core\Domain\FeatureFlag\Loader\FeatureFlagLoaderInterface;
+use Tax16\ToolsBundle\Core\Application\FeatureFlag\Factory\FeatureFlagLoaderFactoryInterface;
+use Tax16\ToolsBundle\Core\Domain\FeatureFlag\Enum\FeatureFlagStorageType;
+use Tax16\ToolsBundle\Infrastructure\FeatureFlag\Loader\Trait\FeatureFlagLoaderTrait;
 
-class YamlFeatureFlagLoader implements FeatureFlagLoaderInterface
+#[Autoconfigure(tags: ['feature_flag_loader'])]
+class YamlFeatureFlagLoader implements FeatureFlagLoaderFactoryInterface
 {
+    use FeatureFlagLoaderTrait;
     private string $yamlPath;
 
-    public function __construct(string $yamlPath)
-    {
+    public function __construct(
+        #[Autowire(param: 'feature_flags.storage.path')]
+        string $yamlPath
+    ) {
         $this->yamlPath = $yamlPath;
     }
 
@@ -28,29 +34,8 @@ class YamlFeatureFlagLoader implements FeatureFlagLoaderInterface
         return $this->parseFeatureFlags($data);
     }
 
-    /**
-     * @throws DateMalformedStringException
-     */
-    private function parseFeatureFlags(array $data): array
-    {
-        $featureFlags = [];
-        foreach ($data as $flagData) {
-            $startDate = !isset($flagData['start_date']) ? null : new DateTime($flagData['start_date']);
-            $endDate = !isset($flagData['end_date']) ? null : new DateTime($flagData['end_date']);
-
-            $featureFlags[] = new FeatureFlag(
-                $flagData['name'],
-                $flagData['enabled'],
-                $startDate,
-                $endDate
-            );
-        }
-
-        return $featureFlags;
-    }
-
     public function supports(string $storageType): bool
     {
-        return $storageType === 'doctrine';
+        return $storageType === FeatureFlagStorageType::YAML->value;
     }
 }
