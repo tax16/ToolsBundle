@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Tests\Unit\Inflrastructure\Retry\Proxy;
+namespace App\Tests\Unit\Infrastructure\Retry\Proxy;
 
-use App\Tests\Unit\Inflrastructure\Retry\FakeClass\TestServiceAllCallFailed;
-use App\Tests\Unit\Inflrastructure\Retry\FakeClass\TestServiceFirstCallFailedButNextSuccess;
-use App\Tests\Unit\Inflrastructure\Retry\FakeClass\TestServiceWithoutError;
+use App\Tests\Unit\Infrastructure\Retry\FakeClass\TestServiceAllCallFailed;
+use App\Tests\Unit\Infrastructure\Retry\FakeClass\TestServiceFirstCallFailedButNextSuccess;
+use App\Tests\Unit\Infrastructure\Retry\FakeClass\TestServiceWithoutError;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use Tax16\ToolsBundle\Infrastructure\Retry\Proxy\RetryProxyFactory;

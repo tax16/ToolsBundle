@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Unit\Inflrastructure\Retry\FakeClass;
+namespace App\Tests\Unit\Infrastructure\Retry\FakeClass;
 
 use Tax16\ToolsBundle\Core\Domain\Retry\Attribut\Retry;
 

@@ -4,7 +4,7 @@ namespace Tax16\ToolsBundle\Core\Application\FeatureFlag\Provider;
 
 use Tax16\ToolsBundle\Core\Application\FeatureFlag\Factory\FeatureFlagLoaderFactory;
 
-class FeatureFlagProvider
+class FeatureFlagProvider implements FeatureFlagProviderInterface
 {
     private FeatureFlagLoaderFactory $featureFlagLoaderFactory;
 
