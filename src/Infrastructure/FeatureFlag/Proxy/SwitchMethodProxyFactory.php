@@ -2,12 +2,11 @@
 
 namespace Tax16\ToolsBundle\Infrastructure\FeatureFlag\Proxy;
 
-use ProxyManager\Factory\LazyLoadingValueHolderFactory;
-use ProxyManager\Proxy\VirtualProxyInterface;
 use ReflectionMethod;
 use Tax16\ToolsBundle\Core\Application\FeatureFlag\Attribute\FeatureFlagSwitchMethod;
 use Tax16\ToolsBundle\Core\Application\FeatureFlag\Provider\FeatureFlagProvider;
 use Tax16\ToolsBundle\Core\Domain\FeatureFlag\Port\ApplicationLoggerInterface;
+
 readonly class SwitchMethodProxyFactory
 {
     public function __construct(
@@ -48,7 +47,7 @@ readonly class SwitchMethodProxyFactory
                     $alternativeMethod = $switchMethodConfig->method;
 
                     if ($this->featureFlagProvider->provideStateByFlag($feature)) {
-                        $this->logger->info("Switching method to: ".(string)$alternativeMethod);
+                        $this->logger->info("Switching method to: ".$alternativeMethod);
 
                         if ($this->areParametersCompatible($reflectionMethod, $alternativeMethod)) {
                             if (method_exists($this->wrappedObject, $alternativeMethod)) {
