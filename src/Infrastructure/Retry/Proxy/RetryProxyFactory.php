@@ -56,7 +56,7 @@ readonly class RetryProxyFactory
 
                         return $result;
                     } catch (\Throwable $e) {
-                        $this->logger->warning('Tentative '.($i + 1)."/$attempts failed: ".$e->getMessage());
+                        $this->logger->warning('Attempts '.($i + 1)."/$attempts failed: ".$e->getMessage());
 
                         if ($i < $attempts - 1) {
                             usleep($delay * 1000);
@@ -66,7 +66,7 @@ readonly class RetryProxyFactory
                     }
                 }
 
-                throw new \RuntimeException("Toutes les tentatives ont échoué pour $calledMethod");
+                throw new \RuntimeException("All attempts failed fro: $calledMethod");
             };
         }
 
