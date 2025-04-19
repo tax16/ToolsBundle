@@ -2,7 +2,7 @@
         "type": "symfony-bundle",
         "name": "tax16/tools",
         "description": "tools bundle",
-        "version": "1.0.1",
+        "version": "1.0.2",
         "require": {
                 "php": ">=8.2",
                 "ext-ctype": "*",

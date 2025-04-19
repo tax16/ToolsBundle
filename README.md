@@ -8,19 +8,11 @@
 **Configure `composer.json`**  
    Add this repository to the `repositories` section of your `composer.json` file:
 
-   ```json
-   "repositories": [
-       {
-           "type": "vcs",
-           "url": "https://github.com/tax16/ToolsBundle.git"
-       }
-   ]
-   ```
 **Add the bundle via Composer**  
    Run the following command in your terminal:
 
    ```bash
-   composer require tax16/tools-bundle:^1.0
+   composer require tax16/tools
    ```
 
 ## ⚙️ Features
