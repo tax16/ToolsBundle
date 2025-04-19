@@ -4,8 +4,10 @@ namespace Tax16\ToolsBundle\Infrastructure\Retry\Proxy;
 
 use ProxyManager\Factory\AccessInterceptorValueHolderFactory;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autoconfigure;
 use Tax16\ToolsBundle\Core\Domain\Retry\Attribut\Retry;
 
+#[Autoconfigure(autowire: true)]
 readonly class RetryProxyFactory
 {
     public function __construct(
