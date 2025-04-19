@@ -5,9 +5,6 @@
 
 ## 🚀 Installation
 
-**Configure `composer.json`**  
-   Add this repository to the `repositories` section of your `composer.json` file:
-
 **Add the bundle via Composer**  
    Run the following command in your terminal:
 

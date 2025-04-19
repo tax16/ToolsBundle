@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "172fec0ec4a8e0929f1e0e7dd41e1bf4",
+    "content-hash": "5f10c8298ce902940a2e8811911b0af2",
     "packages": [
         {
             "name": "friendsofphp/proxy-manager-lts",
